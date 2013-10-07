@@ -15,12 +15,7 @@ public class Square {
 		vx = vy = 0;
 	}
 	
-	public void update(Graphics2D g, ArrayList<Rectangle> rects) {
-		g.setColor(Color.BLUE);
-		int xapprox = Math.round(x);
-		int yapprox = Math.round(y);
-		g.fillRect(xapprox - 5, yapprox - 5, 10, 10);
-		
+	public void update(ArrayList<Rectangle> rects) {
 		y += vy;
 		x += vx;
 		
@@ -47,6 +42,13 @@ public class Square {
 				vy = -vy;
 			}
 		}
+	}
+	
+	public void paint(Graphics2D g) {
+		g.setColor(Color.BLUE);
+		int xapprox = Math.round(x);
+		int yapprox = Math.round(y);
+		g.fillRect(xapprox - 5, yapprox - 5, 10, 10);
 	}
 	
 	public void accelerate(int ax, int ay) {

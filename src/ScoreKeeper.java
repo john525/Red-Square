@@ -15,9 +15,8 @@ public class ScoreKeeper {
 	private float retrieveHighScore() {
 		try {
 			InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
-			
-			return 0f;
-		} catch (FileNotFoundException e) {
+			return reader.read();
+		} catch (Exception e) {
 			return 0f;
 		}
 	}

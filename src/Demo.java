@@ -2,6 +2,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,7 +20,12 @@ public class Demo extends JFrame implements KeyListener {
 	final int UP = 38, DOWN = 40, LEFT = 37, RIGHT = 39;
 	ArrayList<Integer> keyHistory;
 	final int[] konamiCode = {UP,UP,DOWN,DOWN,LEFT,RIGHT,LEFT,RIGHT,65,66};
-		
+	
+	ArrayList<Point> lines;
+	int numOfLines;
+	ArrayList<Rectangle> rects;
+	int numOfRects;
+	
 	public static void main(String[] args) {
 		Demo d = new Demo();
 		d.setVisible(true);
@@ -32,11 +39,23 @@ public class Demo extends JFrame implements KeyListener {
 		
 		setLayout(new BorderLayout());
 		
+		numOfLines = 30;
+		lines = new ArrayList<Point>();
+		for(int i = 0; i < numOfLines; i++) {
+			lines.add(new Point( (int)(Math.random()*(480/numOfLines)) + i * 480 / numOfLines, (int)(Math.random()*(480/numOfLines)) + i * 480 / numOfLines));
+		}
+		
+		numOfRects = 5;
+		rects = new ArrayList<Rectangle>();
+		for(int i = 0; i < numOfRects; i++) {
+			rects.add( new Rectangle( (int) (Math.random()*640/3) + i * 640/3, (int) (Math.random()*480/3) + i * 480/3, 80, 20 ) );
+		}
+		
 		square = new Square();
 		
 		keyHistory = new ArrayList<Integer>();
 		
-		screen = new Screen(square);
+		screen = new Screen(square, rects, numOfRects, lines, numOfLines);
 		this.addKeyListener(this);
 		add(BorderLayout.CENTER, screen);
 		
@@ -49,6 +68,7 @@ public class Demo extends JFrame implements KeyListener {
 		
 		@Override
 		public void actionPerformed(ActionEvent a) {
+			square.update(rects);
 			screen.repaint();
 		}
 		

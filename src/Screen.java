@@ -16,29 +16,22 @@ public class Screen extends JPanel {
 	float height;
 	boolean high;
 	
+	ScoreKeeper sk;
+	
 	ArrayList<Point> lines;
 	int numOfLines;
-	
 	ArrayList<Rectangle> rects;
 	int numOfRects;
 	
-	public Screen(Square s) {
+	public Screen(Square s, ArrayList<Rectangle> rects, int numr, ArrayList<Point> lines, int numl) {
 		square = s;
+		this.rects = rects;
+		this.lines = lines;
+		numOfLines = numl;
+		numOfRects = numr;
 		
 		height = 0;
 		high = false;
-		
-		numOfLines = 30;
-		lines = new ArrayList<Point>();
-		for(int i = 0; i < numOfLines; i++) {
-			lines.add(new Point( (int)(Math.random()*(480/numOfLines)) + i * 480 / numOfLines, (int)(Math.random()*(480/numOfLines)) + i * 480 / numOfLines));
-		}
-		
-		numOfRects = 5;
-		rects = new ArrayList<Rectangle>();
-		for(int i = 0; i < numOfRects; i++) {
-			rects.add( new Rectangle( (int) (Math.random()*640/3) + i * 640/3, (int) (Math.random()*480/3) + i * 480/3, 80, 20 ) );
-		}
 	}
 	
 	@Override
@@ -47,7 +40,7 @@ public class Screen extends JPanel {
 		
 		Graphics2D g = (Graphics2D) surface;
 		
-		square.update(g, rects);
+		square.paint(g);
 		
 		Point p = square.getCoords();
 		
