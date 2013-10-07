@@ -60,6 +60,8 @@ public class Screen extends JPanel {
 		g.setColor(Color.RED);
 		if(p.y > 480) {
 			g.drawString("You Lose. Press Space to Restart.", 640/2, 480/2 + 20);
+			
+			
 		}
 		
 		g.setColor(Color.RED);
