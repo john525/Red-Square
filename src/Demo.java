@@ -39,7 +39,7 @@ public class Demo extends JFrame implements KeyListener {
 		gameActive = true;
 		
 		setSize(640,480);
-		setTitle("Red Square Ð A Game by John Lhota");
+		setTitle("Red Square");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
