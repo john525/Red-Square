@@ -11,19 +11,22 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel {
 	
+	Demo demo;
+	
+	float highScore;
+	
 	Square square;
 	
 	float height;
 	boolean high;
-	
-	ScoreKeeper sk;
-	
+		
 	ArrayList<Point> lines;
 	int numOfLines;
 	ArrayList<Rectangle> rects;
 	int numOfRects;
 	
-	public Screen(Square s, ArrayList<Rectangle> rects, int numr, ArrayList<Point> lines, int numl) {
+	public Screen(Demo d, Square s, ArrayList<Rectangle> rects, int numr, ArrayList<Point> lines, int numl) {
+		demo = d;		
 		square = s;
 		this.rects = rects;
 		this.lines = lines;
@@ -53,8 +56,7 @@ public class Screen extends JPanel {
 		g.setColor(Color.RED);
 		if(p.y > 480) {
 			g.drawString("You Lose. Press Space to Restart.", 640/2, 480/2 + 20);
-			
-			
+			demo.gameOver(height);
 		}
 		
 		g.setColor(Color.RED);
@@ -90,6 +92,8 @@ public class Screen extends JPanel {
 		}
 		
 		//star(g);
+		
+		g.drawString("High Score: " + highScore, 10, 10);
 	}
 	
 	public void reset() {
@@ -115,5 +119,9 @@ public class Screen extends JPanel {
 			( int ) ( Math.random() * 256 ), 
 			( int ) ( Math.random() * 256 ) ) ); 
 		g.fill( star );
+	}
+
+	public void setHighScore(float s) {
+		highScore = s;
 	}
 }

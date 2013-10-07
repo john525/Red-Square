@@ -26,18 +26,27 @@ public class Demo extends JFrame implements KeyListener {
 	ArrayList<Rectangle> rects;
 	int numOfRects;
 	
+	ScoreKeeper sk;
+	
+	boolean gameActive;
+	
 	public static void main(String[] args) {
 		Demo d = new Demo();
 		d.setVisible(true);
 	}
 	
 	public Demo() {
+		gameActive = true;
+		
 		setSize(640,480);
 		setTitle("Red Square Ð A Game by John Lhota");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		setLayout(new BorderLayout());
+		
+		sk = new ScoreKeeper();
+		System.out.println("High Score: " + sk.retrieveHighScore());
 		
 		numOfLines = 30;
 		lines = new ArrayList<Point>();
@@ -55,7 +64,8 @@ public class Demo extends JFrame implements KeyListener {
 		
 		keyHistory = new ArrayList<Integer>();
 		
-		screen = new Screen(square, rects, numOfRects, lines, numOfLines);
+		screen = new Screen(this, square, rects, numOfRects, lines, numOfLines);
+		screen.setHighScore(sk.retrieveHighScore());
 		this.addKeyListener(this);
 		add(BorderLayout.CENTER, screen);
 		
@@ -91,6 +101,7 @@ public class Demo extends JFrame implements KeyListener {
 			square.accelerate(0, -5);
 			break;
 		case 32: // SPACE
+			gameActive = true;
 			screen.reset();
 			break;
 		}
@@ -119,5 +130,13 @@ public class Demo extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
+	}
+
+	public void gameOver(float height) {
+		if(gameActive) {
+			sk.gameOver(height);
+			screen.setHighScore(sk.retrieveHighScore());
+			gameActive = false;
+		}
 	}
 }
