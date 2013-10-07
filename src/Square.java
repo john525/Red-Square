@@ -26,13 +26,19 @@ public class Square {
 		
 		if (/*y + 5 >= 480 ||*/ y - 5 <= 0) {
 			vy = -vy;
+			y = 5;
 		}
 		else {
 			vy += 0.1;
 		}
 		
-		if(x + 5 >= 640 || x - 5 <= 0) {
+		if(x + 5 >= 640) {
 			vx = -vx;
+			x = 635;
+		}
+		else if(x - 5 <= 0) {
+			vx = -vx;
+			x = 5;
 		}
 		
 		for(Rectangle rect : rects) {
